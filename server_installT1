@@ -1,0 +1,45 @@
+# Install steam and L4D2
+wget http://media.steampowered.com/installer/steamcmd_linux.tar.gz
+tar -xvzf steamcmd_linux.tar.gz
+./steamcmd.sh << STEAM
+login anonymous
+force_install_dir ./serverT1
+app_update 222860 validate
+quit
+STEAM
+
+# Server download
+git clone https://github.com/misdocumeno/Unifix_T1
+cp -r Unifix_T1/* serverT1/left4dead2/
+
+# Screen script
+printf 'screen -S UnifixT1 ./serverT1/srcds_run -tickrate 100 +map "c10m1_caves" +sv_clockcorrection_msecs 15 -timeout 10 +ip 0.0.0.0 -port 27015 +precache_all_survivors 1' > server_startT1
+chmod u+x server_startT1
+
+# Per server config backup
+# Edit these files instead of the server ones
+# This will be copied to the server directory when update
+mkdir -p serverconfigsT1/cfg/
+cp Unifix_T1/cfg/server.cfg serverconfigsT1/cfg/
+mkdir -p serverconfigsT1/addons/sourcemod/configs/sourcebans/
+cp Unifix_T1/addons/sourcemod/configs/sourcebans/sourcebans.cfg serverconfigsT1/addons/sourcemod/configs/sourcebans/
+cp Unifix_T1/addons/sourcemod/configs/databases.cfg serverconfigsT1/addons/sourcemod/configs/
+
+# Update script
+printf '%s\n' \
+'killall screen' \
+'cd Unifix_T1' \
+'git pull' \
+'rm -rf ../serverT1/left4dead2/addons/sourcemod/' \
+'rm -rf ../serverT1/left4dead2/cfg/sourcemod/' \
+'rm ../serverT1/left4dead2/cfg/t1.cfg' \
+'rm ../serverT1/left4dead2/cfg/server.cfg' \
+'rm ../serverT1/left4dead2/host.txt' \
+'rm ../serverT1/left4dead2/motd.txt' \
+'cp -r * ../serverT1/left4dead2/' \
+'git reset HEAD --hard' \
+'cd ..' \
+'cd serverconfigsT1' \
+'cp -r * ../serverT1/left4dead2/' \
+> server_updateT1
+chmod u+x server_updateT1

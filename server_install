@@ -1,15 +1,6 @@
-# Libs and apps
-dpkg --add-architecture i386
-apt-get update -y && apt-get upgrade -y
-apt-get install -y libc6:i386
-apt-get install -y lib32gcc1
-apt-get install -y lib32z1
-apt-get install -y git
-
 # Install steam and L4D2
 wget http://media.steampowered.com/installer/steamcmd_linux.tar.gz
 tar -xvzf steamcmd_linux.tar.gz
-chmod -R 777 .
 ./steamcmd.sh << STEAM
 login anonymous
 force_install_dir ./server
@@ -52,8 +43,5 @@ printf '%s\n' \
 'cd ..' \
 'cd serverconfigs' \
 'cp -r * ../server/left4dead2/' \
-'cd ..' \
-'chmod -R 777 server' \
 > server_update
 chmod u+x server_update
-chmod -R 777 server

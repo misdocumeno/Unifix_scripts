@@ -1,28 +1,19 @@
-# Libs and apps
-dpkg --add-architecture i386
-apt-get update -y && apt-get upgrade -y
-apt-get install -y libc6:i386
-apt-get install -y lib32gcc1
-apt-get install -y lib32z1
-apt-get install -y git
-
 # Install steam and L4D2
 wget http://media.steampowered.com/installer/steamcmd_linux.tar.gz
 tar -xvzf steamcmd_linux.tar.gz
-chmod -R 777 .
-./steamcmd.sh << UNIFIX
+./steamcmd.sh << STEAM
 login anonymous
 force_install_dir ./server
 app_update 222860 validate
 quit
-UNIFIX
+STEAM
 
-./steamcmd.sh << UNIFIXT1
+./steamcmd.sh << STEAMT1
 login anonymous
 force_install_dir ./serverT1
 app_update 222860 validate
 quit
-UNIFIXT1
+STEAMT1
 
 # Server download
 git clone https://github.com/misdocumeno/Unifix
@@ -48,6 +39,10 @@ cp Unifix/cfg/server.cfg serverconfigs/cfg/
 mkdir -p serverconfigs/addons/sourcemod/configs/sourcebans/
 cp Unifix/addons/sourcemod/configs/sourcebans/sourcebans.cfg serverconfigs/addons/sourcemod/configs/sourcebans/
 cp Unifix/addons/sourcemod/configs/databases.cfg serverconfigs/addons/sourcemod/configs/
+
+# Per server config backup T1
+# Edit these files instead of the server ones
+# This will be copied to the server directory when update
 mkdir -p serverconfigsT1/cfg/
 cp Unifix_T1/cfg/server.cfg serverconfigsT1/cfg/
 mkdir -p serverconfigsT1/addons/sourcemod/configs/sourcebans/
@@ -72,12 +67,10 @@ printf '%s\n' \
 'cd ..' \
 'cd serverconfigs' \
 'cp -r * ../server/left4dead2/' \
-'cd ..' \
-'chmod -R 777 server' \
 > server_update
 chmod u+x server_update
 
-# Update T1 script
+# Update script T1
 printf '%s\n' \
 'killall screen' \
 'cd Unifix_T1' \
@@ -93,10 +86,5 @@ printf '%s\n' \
 'cd ..' \
 'cd serverconfigsT1' \
 'cp -r * ../serverT1/left4dead2/' \
-'cd ..' \
-'chmod -R 777 serverT1' \
 > server_updateT1
 chmod u+x server_updateT1
-
-chmod -R 777 server
-chmod -R 777 serverT1

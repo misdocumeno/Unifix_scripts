@@ -1,0 +1,7 @@
+# Libs and apps
+dpkg --add-architecture i386
+apt-get update -y && apt-get upgrade -y
+apt-get install -y libc6:i386
+apt-get install -y lib32gcc1
+apt-get install -y lib32z1
+apt-get install -y git
