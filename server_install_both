@@ -36,6 +36,8 @@ chmod u+x server_startT1
 # This will be copied to the server directory when update
 mkdir -p serverconfigs/cfg/
 cp Unifix/cfg/server.cfg serverconfigs/cfg/
+mkdir -p serverconfigs/cfg/sourcemod/
+cp Unifix/cfg/sourcemod/vpn_ip.cfg serverconfigs/cfg/sourcemod/vpn_ip.cfg
 mkdir -p serverconfigs/addons/sourcemod/configs/sourcebans/
 cp Unifix/addons/sourcemod/configs/sourcebans/sourcebans.cfg serverconfigs/addons/sourcemod/configs/sourcebans/
 cp Unifix/addons/sourcemod/configs/databases.cfg serverconfigs/addons/sourcemod/configs/
@@ -45,6 +47,8 @@ cp Unifix/addons/sourcemod/configs/databases.cfg serverconfigs/addons/sourcemod/
 # This will be copied to the server directory when update
 mkdir -p serverconfigsT1/cfg/
 cp Unifix_T1/cfg/server.cfg serverconfigsT1/cfg/
+mkdir -p serverconfigsT1/cfg/sourcemod/
+cp Unifix_T1/cfg/sourcemod/vpn_ip.cfg serverconfigsT1/cfg/sourcemod/vpn_ip.cfg
 mkdir -p serverconfigsT1/addons/sourcemod/configs/sourcebans/
 cp Unifix_T1/addons/sourcemod/configs/sourcebans/sourcebans.cfg serverconfigsT1/addons/sourcemod/configs/sourcebans/
 cp Unifix_T1/addons/sourcemod/configs/databases.cfg serverconfigsT1/addons/sourcemod/configs/
@@ -66,7 +70,12 @@ printf '%s\n' \
 'git reset HEAD --hard' \
 'cd ..' \
 'cd serverconfigs' \
+'rm ../server/left4dead2/cfg/server.cfg' \
+'rm ../server/left4dead2/cfg/sourcemod/vpn_ip.cfg' \
+'rm ../server/left4dead2/cfg/sourcemod/configs/databases.cfg' \
+'rm ../server/left4dead2/cfg/sourcemod/configs/sourcebans/sourcebans.cfg' \
 'cp -r * ../server/left4dead2/' \
+'rm ../server_install_both' \
 > server_update
 chmod u+x server_update
 
@@ -85,6 +94,11 @@ printf '%s\n' \
 'git reset HEAD --hard' \
 'cd ..' \
 'cd serverconfigsT1' \
+'rm ../serverT1/left4dead2/cfg/server.cfg' \
+'rm ../serverT1/left4dead2/cfg/sourcemod/vpn_ip.cfg' \
+'rm ../serverT1/left4dead2/cfg/sourcemod/configs/databases.cfg' \
+'rm ../serverT1/left4dead2/cfg/sourcemod/configs/sourcebans/sourcebans.cfg' \
 'cp -r * ../serverT1/left4dead2/' \
+'rm ../server_install_both' \
 > server_updateT1
 chmod u+x server_updateT1

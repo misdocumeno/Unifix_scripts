@@ -1,0 +1,21 @@
+killall screen
+cd Unifix
+git pull
+rm -rf ../server/left4dead2/addons/sourcemod/
+rm -rf ../server/left4dead2/cfg/sourcemod/
+rm -rf ../server/left4dead2/cfg/cfgogl/
+rm ../server/left4dead2/cfg/generalfixes.cfg
+rm ../server/left4dead2/cfg/sharedplugins.cfg
+rm ../server/left4dead2/cfg/server.cfg
+rm ../server/left4dead2/host.txt
+rm ../server/left4dead2/motd.txt
+cp -r * ../server/left4dead2/
+git reset HEAD --hard
+cd ..
+cd serverconfigs
+rm ../server/left4dead2/cfg/server.cfg
+rm ../server/left4dead2/cfg/sourcemod/vpn_ip.cfg
+rm ../server/left4dead2/cfg/sourcemod/configs/databases.cfg
+rm ../server/left4dead2/cfg/sourcemod/configs/sourcebans/sourcebans.cfg
+cp -r * ../server/left4dead2/
+rm ../server_install

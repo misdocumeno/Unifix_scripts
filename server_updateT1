@@ -1,0 +1,19 @@
+killall screen
+cd Unifix_T1
+git pull
+rm -rf ../serverT1/left4dead2/addons/sourcemod/
+rm -rf ../serverT1/left4dead2/cfg/sourcemod/
+rm ../serverT1/left4dead2/cfg/t1.cfg
+rm ../serverT1/left4dead2/cfg/server.cfg
+rm ../serverT1/left4dead2/host.txt
+rm ../serverT1/left4dead2/motd.txt
+cp -r * ../serverT1/left4dead2/
+git reset HEAD --hard
+cd ..
+cd serverconfigsT1
+rm ../serverT1/left4dead2/cfg/server.cfg
+rm ../serverT1/left4dead2/cfg/sourcemod/vpn_ip.cfg
+rm ../serverT1/left4dead2/cfg/sourcemod/configs/databases.cfg
+rm ../serverT1/left4dead2/cfg/sourcemod/configs/sourcebans/sourcebans.cfg
+cp -r * ../serverT1/left4dead2/
+rm ../server_installT1
