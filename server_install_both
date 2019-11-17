@@ -76,6 +76,7 @@ printf '%s\n' \
 'rm ../server/left4dead2/cfg/sourcemod/configs/sourcebans/sourcebans.cfg' \
 'cp -r * ../server/left4dead2/' \
 'rm ../server_install_both' \
+'rm ../server_pre' \
 > server_update
 chmod u+x server_update
 
@@ -100,5 +101,6 @@ printf '%s\n' \
 'rm ../serverT1/left4dead2/cfg/sourcemod/configs/sourcebans/sourcebans.cfg' \
 'cp -r * ../serverT1/left4dead2/' \
 'rm ../server_install_both' \
+'rm ../server_pre' \
 > server_updateT1
 chmod u+x server_updateT1

@@ -48,5 +48,6 @@ printf '%s\n' \
 'rm ../serverT1/left4dead2/cfg/sourcemod/configs/sourcebans/sourcebans.cfg' \
 'cp -r * ../serverT1/left4dead2/' \
 'rm ../server_installT1' \
+'rm ../server_pre' \
 > server_updateT1
 chmod u+x server_updateT1

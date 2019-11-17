@@ -19,3 +19,4 @@ rm ../server/left4dead2/cfg/sourcemod/configs/databases.cfg
 rm ../server/left4dead2/cfg/sourcemod/configs/sourcebans/sourcebans.cfg
 cp -r * ../server/left4dead2/
 rm ../server_install
+rm ../server_pre
