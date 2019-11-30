@@ -1,0 +1,110 @@
+# Install steam and L4D2
+wget http://media.steampowered.com/installer/steamcmd_linux.tar.gz
+tar -xvzf steamcmd_linux.tar.gz
+./steamcmd.sh << STEAM
+login anonymous
+force_install_dir ./server1
+app_update 222860 validate
+force_install_dir ./server2
+app_update 222860 validate
+force_install_dir ./server3
+app_update 222860 validate
+quit
+STEAM
+
+# Server download
+git clone https://github.com/misdocumeno/Unifix
+cp -r Unifix/* server1/left4dead2/
+cp -r Unifix/* server2/left4dead2/
+cp -r Unifix/* server3/left4dead2/
+
+# Screen script
+printf 'screen -S Unifix1 ./server1/srcds_run -tickrate 100 +map "c10m1_caves" +sv_clockcorrection_msecs 15 -timeout 10 +ip 0.0.0.0 -port 27015 +precache_all_survivors 1' > server_start1
+chmod u+x server_start1
+printf 'screen -S Unifix2 ./server2/srcds_run -tickrate 100 +map "c10m1_caves" +sv_clockcorrection_msecs 15 -timeout 10 +ip 0.0.0.0 -port 27016 +precache_all_survivors 1' > server_start2
+chmod u+x server_start2
+printf 'screen -S Unifix3 ./server3/srcds_run -tickrate 100 +map "c10m1_caves" +sv_clockcorrection_msecs 15 -timeout 10 +ip 0.0.0.0 -port 27017 +precache_all_survivors 1' > server_start3
+chmod u+x server_start3
+
+# Per server config backup
+# Edit these files instead of the server ones
+# This will be copied to the server directory when update
+mkdir -p serverconfigs1/cfg/
+cp Unifix/cfg/server.cfg serverconfigs1/cfg/
+mkdir -p serverconfigs1/cfg/sourcemod/
+cp Unifix/cfg/sourcemod/vpn_ip.cfg serverconfigs1/cfg/sourcemod/vpn_ip.cfg
+mkdir -p serverconfigs1/addons/sourcemod/configs/sourcebans/
+cp Unifix/addons/sourcemod/configs/sourcebans/sourcebans.cfg serverconfigs1/addons/sourcemod/configs/sourcebans/
+cp Unifix/addons/sourcemod/configs/databases.cfg serverconfigs1/addons/sourcemod/configs/
+cp Unifix/cfg/server.cfg serverconfigs2/cfg/
+mkdir -p serverconfigs2/cfg/sourcemod/
+cp Unifix/cfg/sourcemod/vpn_ip.cfg serverconfigs2/cfg/sourcemod/vpn_ip.cfg
+mkdir -p serverconfigs2/addons/sourcemod/configs/sourcebans/
+cp Unifix/addons/sourcemod/configs/sourcebans/sourcebans.cfg serverconfigs2/addons/sourcemod/configs/sourcebans/
+cp Unifix/addons/sourcemod/configs/databases.cfg serverconfigs2/addons/sourcemod/configs/
+cp Unifix/cfg/server.cfg serverconfigs3/cfg/
+mkdir -p serverconfigs3/cfg/sourcemod/
+cp Unifix/cfg/sourcemod/vpn_ip.cfg serverconfigs3/cfg/sourcemod/vpn_ip.cfg
+mkdir -p serverconfigs3/addons/sourcemod/configs/sourcebans/
+cp Unifix/addons/sourcemod/configs/sourcebans/sourcebans.cfg serverconfigs3/addons/sourcemod/configs/sourcebans/
+cp Unifix/addons/sourcemod/configs/databases.cfg serverconfigs3/addons/sourcemod/configs/
+
+# Update script
+printf '%s\n' \
+'killall screen' \
+'cd Unifix' \
+'git pull' \
+'rm -rf ../server1/left4dead2/addons/sourcemod/' \
+'rm -rf ../server1/left4dead2/cfg/sourcemod/' \
+'rm -rf ../server1/left4dead2/cfg/cfgogl/' \
+'rm -rf ../server2/left4dead2/addons/sourcemod/' \
+'rm -rf ../server2/left4dead2/cfg/sourcemod/' \
+'rm -rf ../server2/left4dead2/cfg/cfgogl/' \
+'rm -rf ../server3/left4dead2/addons/sourcemod/' \
+'rm -rf ../server3/left4dead2/cfg/sourcemod/' \
+'rm -rf ../server3/left4dead2/cfg/cfgogl/' \
+'rm ../server1/left4dead2/cfg/generalfixes.cfg' \
+'rm ../server1/left4dead2/cfg/sharedplugins.cfg' \
+'rm ../server1/left4dead2/cfg/server.cfg' \
+'rm ../server1/left4dead2/host.txt' \
+'rm ../server1/left4dead2/motd.txt' \
+'rm ../server2/left4dead2/cfg/generalfixes.cfg' \
+'rm ../server2/left4dead2/cfg/sharedplugins.cfg' \
+'rm ../server2/left4dead2/cfg/server.cfg' \
+'rm ../server2/left4dead2/host.txt' \
+'rm ../server2/left4dead2/motd.txt' \
+'rm ../server3/left4dead2/cfg/generalfixes.cfg' \
+'rm ../server3/left4dead2/cfg/sharedplugins.cfg' \
+'rm ../server3/left4dead2/cfg/server.cfg' \
+'rm ../server3/left4dead2/host.txt' \
+'rm ../server3/left4dead2/motd.txt' \
+'cp -r * ../server1/left4dead2/' \
+'cp -r * ../server2/left4dead2/' \
+'cp -r * ../server3/left4dead2/' \
+'git reset HEAD --hard' \
+'cd ..' \
+'cd serverconfigs1' \
+'rm ../server1/left4dead2/cfg/server.cfg' \
+'rm ../server1/left4dead2/cfg/sourcemod/vpn_ip.cfg' \
+'rm ../server1/left4dead2/cfg/sourcemod/configs/databases.cfg' \
+'rm ../server1/left4dead2/cfg/sourcemod/configs/sourcebans/sourcebans.cfg' \
+'cp -r * ../server1/left4dead2/' \
+'cd ..' \
+'cd serverconfigs2' \
+'rm ../server2/left4dead2/cfg/server.cfg' \
+'rm ../server2/left4dead2/cfg/sourcemod/vpn_ip.cfg' \
+'rm ../server2/left4dead2/cfg/sourcemod/configs/databases.cfg' \
+'rm ../server2/left4dead2/cfg/sourcemod/configs/sourcebans/sourcebans.cfg' \
+'cp -r * ../server2/left4dead2/' \
+'cd ..' \
+'cd serverconfigs3' \
+'rm ../server3/left4dead2/cfg/server.cfg' \
+'rm ../server3/left4dead2/cfg/sourcemod/vpn_ip.cfg' \
+'rm ../server3/left4dead2/cfg/sourcemod/configs/databases.cfg' \
+'rm ../server3/left4dead2/cfg/sourcemod/configs/sourcebans/sourcebans.cfg' \
+'cp -r * ../server3/left4dead2/' \
+> server_update
+chmod u+x server_update
+
+rm server_install_three
+rm server_pre'
