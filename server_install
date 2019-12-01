@@ -35,6 +35,7 @@ printf '%s\n' \
 'rm -rf ../server/left4dead2/addons/sourcemod/' \
 'rm -rf ../server/left4dead2/cfg/sourcemod/' \
 'rm -rf ../server/left4dead2/cfg/cfgogl/' \
+'rm -rf ../server/left4dead2/cfg/stripper/' \
 'rm ../server/left4dead2/cfg/generalfixes.cfg' \
 'rm ../server/left4dead2/cfg/sharedplugins.cfg' \
 'rm ../server/left4dead2/cfg/server.cfg' \
@@ -49,7 +50,5 @@ printf '%s\n' \
 'rm ../server/left4dead2/cfg/sourcemod/configs/databases.cfg' \
 'rm ../server/left4dead2/cfg/sourcemod/configs/sourcebans/sourcebans.cfg' \
 'cp -r * ../server/left4dead2/' \
-'rm ../server_install' \
-'rm ../server_pre' \
 > server_update
 chmod u+x server_update
