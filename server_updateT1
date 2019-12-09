@@ -3,7 +3,7 @@ cd Unifix_T1
 git pull
 rm -rf ../serverT1/left4dead2/addons/sourcemod/
 rm -rf ../serverT1/left4dead2/cfg/sourcemod/
-rm -rf ../server/left4dead2/cfg/cfgogl/
+rm -rf ../serverT1/left4dead2/cfg/cfgogl/
 rm -rf ../serverT1/left4dead2/cfg/stripper/
 rm ../serverT1/left4dead2/cfg/generalfixes.cfg
 rm ../serverT1/left4dead2/cfg/sharedplugins.cfg
